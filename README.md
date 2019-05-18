@@ -3,3 +3,4 @@
 ### Requirement
 Bottle  
 Python3  
+mjpg_streamer  
