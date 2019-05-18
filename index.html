@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>RAPIRO Controler</title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <script type="text/javascript" src="static/jquery.js"></script>    
+    <script type="text/javascript" src="static/jquery.rotate.js"></script>
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="static/fix.css" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript">
+    
+	var phi = 180, flipped = 0, mirrored = 0;
+
+        function setXformClass () {
+                $('.xform').each(function(idx,el) {
+                        el.className = "xform x" +(flipped ? "-flipped":"") + (mirrored ? "-mirrored" : "") + "-rotated-" + phi;
+                });
+        }
+	function rapiroCommand(cmd) {
+		var loc = "http://rapiropi/" + cmd;
+		var xhr = new XMLHttpRequest();
+		var result = document.getElementById('xhr-result');
+		result.value = loc; 
+		xhr.open('GET', loc, true);
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4 && xhr.status === 200){
+				result.value = xhr.responseText;
+			}
+		};
+		xhr.send(null);
+	}
+	$(document).ready(function() {
+                // set rotation angle phi and toggle rotate class
+                $('#rotate').click(function() {
+                        phi = (phi + 90) % 360;
+                        setXformClass();
+                        if (phi % 180) {
+                                $('.xform-p').addClass('rotated');
+                        } else {
+                                $('.xform-p').removeClass('rotated');
+                        }
+                });
+                // toggle mirror class component
+                $('#mirror').click(function() {
+                        mirrored = ! mirrored;
+                        setXformClass();
+                });
+                // toggle flip class component
+                $('#flip').click(function() {
+                        flipped = ! flipped;
+                        setXformClass();
+                });
+		// RAPIRO command
+		$('#m0').click(function() {
+			rapiroCommand('M0');
+		});
+		$('#m1').click(function() {
+			rapiroCommand('M1');
+		});
+		$('#m2').click(function() {
+			rapiroCommand('M2');
+		});
+		$('#m3').click(function() {
+			rapiroCommand('M3');
+		});
+		$('#m4').click(function() {
+			rapiroCommand('M4');
+		});
+		$('#m5').click(function() {
+			rapiroCommand('M5');
+		});
+		$('#m6').click(function() {
+			rapiroCommand('M6');
+		});
+		$('#m7').click(function() {
+			rapiroCommand('M7');
+		});
+		$('#m8').click(function() {
+			rapiroCommand('M8');
+		});
+		$('#m9').click(function() {
+			rapiroCommand('M9');
+		});
+		$('#play').click(function() {
+			var msg = document.getElementById('message');
+			rapiroCommand('PLAY?name=' + msg.value);
+		});
+		$('#say').click(function() {
+			var msg = document.getElementById('message');
+			rapiroCommand('SPEAK?message=' + msg.value);
+		});
+
+		$('#low').click(function() {
+			rapiroCommand('LOW');
+		});
+		$('#high').click(function() {
+			rapiroCommand('HIGH');
+		});
+		$('#comc').click(function() {
+			rapiroCommand('COMC');
+		});
+		
+		$('#hd1').click(function() {
+			rapiroCommand('PX?S=00&A=180&T=010');
+		});
+		$('#hd2').click(function() {
+			rapiroCommand('PX?S=00&A=150&T=010');
+		});
+		$('#hd3').click(function() {
+			rapiroCommand('PX?S=00&A=120&T=010');
+		});
+		$('#hd4').click(function() {
+			rapiroCommand('PX?S=00&A=090&T=010');
+		});
+		$('#hd5').click(function() {
+			rapiroCommand('PX?S=00&A=060&T=010');
+		});
+		$('#hd6').click(function() {
+			rapiroCommand('PX?S=00&A=030&T=010');
+		});
+		$('#hd7').click(function() {
+			rapiroCommand('PX?S=00&A=000&T=010');
+		});
+		$('#ws1').click(function() {
+			rapiroCommand('PX?S=01&A=180&T=010');
+		});
+		$('#ws2').click(function() {
+			rapiroCommand('PX?S=01&A=150&T=010');
+		});
+		$('#ws3').click(function() {
+			rapiroCommand('PX?S=01&A=120&T=010');
+		});
+		$('#ws4').click(function() {
+			rapiroCommand('PX?S=01&A=090&T=010');
+		});
+		$('#ws5').click(function() {
+			rapiroCommand('PX?S=01&A=060&T=010');
+		});
+		$('#ws6').click(function() {
+			rapiroCommand('PX?S=01&A=030&T=010');
+		});
+		$('#ws7').click(function() {
+			rapiroCommand('PX?S=01&A=000&T=010');
+		});
+
+		$('#rho').click(function() {
+			rapiroCommand('PX?S=04&A=095&T=010');
+		});
+		$('#rhn').click(function() {
+			rapiroCommand('PX?S=04&A=060&T=010');
+		});
+		$('#rhc').click(function() {
+			rapiroCommand('PX?S=04&A=050&T=010');
+		});
+		$('#ra1').click(function() {
+			rapiroCommand('PX?S=03&A=130&T=010');
+		});
+		$('#ra2').click(function() {
+			rapiroCommand('PX?S=03&A=110&T=010');
+		});
+		$('#ra3').click(function() {
+			rapiroCommand('PX?S=03&A=080&T=010');
+		});
+		$('#ra4').click(function() {
+			rapiroCommand('PX?S=03&A=040&T=010');
+		});
+		$('#rs1').click(function() {
+			rapiroCommand('PX?S=02&A=000&T=010');
+		});
+		$('#rs2').click(function() {
+			rapiroCommand('PX?S=02&A=030&T=010');
+		});
+		$('#rs3').click(function() {
+			rapiroCommand('PX?S=02&A=060&T=010');
+		});
+		$('#rs4').click(function() {
+			rapiroCommand('PX?S=02&A=090&T=010');
+		});
+		$('#rs5').click(function() {
+			rapiroCommand('PX?S=02&A=120&T=010');
+		});
+
+		$('#lho').click(function() {
+			rapiroCommand('PX?S=07&A=090&T=010');
+		});
+		$('#lhn').click(function() {
+			rapiroCommand('PX?S=07&A=110&T=010');
+		});
+		$('#lhc').click(function() {
+			rapiroCommand('PX?S=07&A=140&T=010');
+		});
+		$('#la1').click(function() {
+			rapiroCommand('PX?S=06&A=050&T=010');
+		});
+		$('#la2').click(function() {
+			rapiroCommand('PX?S=06&A=080&T=010');
+		});
+		$('#la3').click(function() {
+			rapiroCommand('PX?S=06&A=110&T=010');
+		});
+		$('#la4').click(function() {
+			rapiroCommand('PX?S=06&A=140&T=010');
+		});
+		$('#ls1').click(function() {
+			rapiroCommand('PX?S=05&A=180&T=010');
+		});
+		$('#ls2').click(function() {
+			rapiroCommand('PX?S=05&A=150&T=010');
+		});
+		$('#ls3').click(function() {
+			rapiroCommand('PX?S=05&A=120&T=010');
+		});
+		$('#ls4').click(function() {
+			rapiroCommand('PX?S=05&A=090&T=010');
+		});
+		$('#ls5').click(function() {
+			rapiroCommand('PX?S=05&A=060&T=010');
+		});
+ 		setXformClass();
+        });
+        </script>
+  </head>
+
+  <body>
+    <div id="content" style="width:820px;">
+      <h1>RAPIRO Controler</h1>
+
+	<div style="width:800px; text-align:center;">
+		<p class="xform-p"></p>
+		<p id="streamwrap" class="xform-p" style="display: block; margin-left: auto; margin-right: auto;">
+			<img id="streamimage" class="xform" src="http://rapiropi:8080/?action=stream" />
+		</p>
+	</div>
+	<br/><br/><br/><br/><br/>
+	<div style="border: 1px solid #FF0000; margin: 0 auto; background: #EEE; border-top: 3px solid #DDD; border-left: 3px solid #DDD; border-right: 3px solid #BBB; border-bottom: 3px solid #BBB; color:#111; padding: 10px 0;">
+		<p id="xform-c">
+			<div style="text-align:center;">
+				<button id="hd1">1</button><button id="hd2">2</button><button id="hd3">3</button><button id="hd4">4</button><button id="hd5">5</button><button id="hd6">6</button><button id="hd7">7</button>
+			</div>
+			<br/>
+			<div>
+				<div style="width:50px; float:left;">
+			                	<button id="lho">Open</button></br>
+			                	<button id="lhc">Close</button>
+				</div>
+				<div style="width:50px; float:left;">
+			                	<button id="la4">4</button></br>
+			                	<button id="la3">3</button></br>
+			                	<button id="la2">2</button></br>
+			                	<button id="la1">1</button>
+				</div>
+				<div style="width:50px; float:left;">
+			                	<button id="ls5">5</button></br>
+			                	<button id="ls4">4</button></br>
+			                	<button id="ls3">3</button></br>
+			                	<button id="ls2">2</button></br>
+			                	<button id="ls1">1</button>
+				</div>
+				<div style="width:500px; float:left;">
+					<div style="text-align:center;">
+						<button id="m0" style="width:100px;">M0</button><button id="low" style="width:100px; margin-left:10px;">SERVO OFF</button><button id="high" style="width:100px; margin-left:10px;">SERVO ON</button><button id="comc" style="width:100px; margin-left:10px;">COM CLOSE</button>
+					</div>
+					<br/>
+					<div style="text-align:center; float:left;">
+			                	<button id="m1">M1</button>
+			                	<button id="m2">M2</button>
+			                	<button id="m3">M3</button>
+			                	<button id="m4">M4</button>
+			                	<button id="m5">M5</button>
+			                	<button id="m6">M6</button>
+			                	<button id="m7">M7</button>
+			                	<button id="m8">M8</button>
+			                	<button id="m9">M9</button>
+					</div>
+				</div>
+				<div style="width:50px; float:left;">
+			                	<button id="rs5">5</button></br>
+			                	<button id="rs4">4</button></br>
+			                	<button id="rs3">3</button></br>
+			                	<button id="rs2">2</button></br>
+			                	<button id="rs1">1</button>
+				</div>
+				<div style="width:50px; float:left;">
+			                	<button id="ra4">4</button></br>
+			                	<button id="ra3">3</button></br>
+			                	<button id="ra2">2</button></br>
+			                	<button id="ra1">1</button>
+				</div>
+				<div style="width:50px; float:left;">
+			                	<button id="rho">Open</button></br>
+			                	<button id="rhc">Close</button>
+				</div>
+			</div>
+			<div style="text-align:center; clear:both;">
+				</br>
+				<button id="ws2">2</button><button id="ws3">3</button><button id="ws4">4</button><button id="ws5">5</button><button id="ws6">6</button>
+			</div>
+			<br/>
+			<div style="text-align:center;">
+				<input type="text" id="message" size="50"><br/>
+				<button id="play">Play</button><button id="say">Say</button>
+			</div>
+		</p>
+	</div>
+	<br/>
+	<div style="width:440px; margin: 0 auto;">
+		<textarea style="display:block; width:100%; height: 5em; margin-bottom: 1em;" id="xhr-result"></textarea>
+	</div>
+  </body>
+</html>
